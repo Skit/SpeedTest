@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:width="12dp" android:height="100dp" android:left="5dp" android:top="30dp">
+        <rotate android:drawable="@drawable/peak" android:fromDegrees="-135" android:toDegrees="135"  android:pivotY="100%" android:pivotX="50%"/>
+    </item>
+    <item android:height="22dp" android:width="22dp" android:left="0dp" android:top="120dp">
+        <shape android:shape="oval">
+            <solid android:color="@color/colorAccent" />
+        </shape>
+    </item>
+
+</layer-list>

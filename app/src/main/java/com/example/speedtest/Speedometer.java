@@ -3,16 +3,12 @@ package com.example.speedtest;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.LinearGradient;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Path;
-import android.graphics.RadialGradient;
+import android.graphics.Rect;
 import android.graphics.RectF;
-import android.graphics.Shader;
 import android.graphics.SweepGradient;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import androidx.annotation.Nullable;
@@ -24,10 +20,11 @@ public class Speedometer extends View {
     private float[] gradientPositions = {0.0f, 0.5f, 1.0f};
     private final Paint paint = new Paint();
     private final Paint paintText = new Paint();
-    private final Paint arrowPoint = new Paint();
-    private final Paint arraow = new Paint();
+    private final Paint speedText = new Paint();
     private final RectF rectF = new RectF();
-
+    //protected Drawable arrow = getResources().getDrawable(R.drawable.coursor, null);
+    private int speed;
+    private Rect textBound = new Rect();
 
     public Speedometer(Context context) {
         super(context);
@@ -41,6 +38,15 @@ public class Speedometer extends View {
         super(context, attrs, defStyleAttr);
     }
 
+    public void setSpeed(int s) {
+        speed = s;
+        invalidate();
+    }
+
+    public int getSpeed() {
+        return speed;
+    }
+
 
     @Override
     protected void onDraw(Canvas canvas) {
@@ -52,21 +58,22 @@ public class Speedometer extends View {
         canvas.drawArc(rectF, 120f, 300f, false, paint);
 
         int speedTextOffset = 330;
-        float speedTextTopOffsset = rectF.height() + getPaddingTop() + STROKE;
+        float speedTextTopOffset = rectF.height() + getPaddingTop() + STROKE;
         paintText.setTextSize(48);
         paintText.setTextAlign(Paint.Align.LEFT);
-        canvas.drawText("0 km/h", rectF.centerX() - speedTextOffset, speedTextTopOffsset, paintText);
+        canvas.drawText("0 km/h", rectF.centerX() - speedTextOffset, speedTextTopOffset, paintText);
         paintText.setTextAlign(Paint.Align.RIGHT);
-        canvas.drawText("200 km/h", rectF.centerX() + speedTextOffset, speedTextTopOffsset, paintText);
+        canvas.drawText("200 km/h", rectF.centerX() + speedTextOffset, speedTextTopOffset, paintText);
 
-        arrowPoint.setColor(Color.BLACK);
-        canvas.drawCircle(rectF.centerX(), rectF.centerY() + 100, 30, arrowPoint);
+        speedText.setTextSize(48);
+        String text = speed +  "km/h";
+        float x = rectF.width() / 2f;
+        float y = getWidth() / 2f + rectF.centerX() / 2f;
+        canvas.drawText(text, x, y, speedText);
 
-        arraow.setColor(Color.BLACK);
-        arraow.setStrokeWidth(20f);
-        double angle = Math.PI * 100 / 30 - Math.PI / 2;
-        canvas.drawLine(rectF.centerX(), rectF.centerY() + 100, (float) (rectF.width() + Math.cos(angle) / 2 * 1000), (float) (rectF.height() / 2 + Math.sin(angle) * 1000), arraow);
-        Log.d("ttt", "onDraw() [" +  Math.cos(angle) + "]  [" + Math.sin(angle) + "]");
+        /*arrow.setBounds((int) rectF.centerX(), (int) rectF.centerY(), 10, 10);
+        arrow.draw(canvas);
+        arrow.setLevel(speed);*/
     }
 
     @Override

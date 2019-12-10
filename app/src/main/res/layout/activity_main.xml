@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <com.example.speedtest.Speedometer
+        android:id="@+id/spreedometer"
+        android:layout_width="match_parent"
+        android:layout_height="360dp">
+    </com.example.speedtest.Speedometer>
+
+    <ImageView
+        android:layout_centerHorizontal="true"
+        android:id="@+id/cursor"
+        android:layout_width="match_parent"
+        android:layout_height="360dp"
+        android:scaleType="center"
+        android:src="@drawable/coursor" />
+
+    <SeekBar
+        android:id="@+id/seek_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_below="@id/spreedometer"
+        android:layout_margin="20dp"
+        android:max="10000" />
+
+</RelativeLayout>
